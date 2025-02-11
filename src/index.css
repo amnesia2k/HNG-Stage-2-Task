@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Road+Rage&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --font-merriweather: "Merriweather", "serif";
+  --font-road-rage: "Road Rage", "serif";
+}
+
+@layer utilities {
+  * {
+    font-family: "Roboto", serif;
+    background: #02191d;
+    overflow: hidden;
+    color: #fff;
+  }
+
+  .gradient-circle {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50%;
+    background: radial-gradient(
+      circle at bottom,
+      rgba(0, 255, 255, 0.3),
+      transparent 70%
+    );
+    pointer-events: none;
+
+    -webkit-mask-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+}
