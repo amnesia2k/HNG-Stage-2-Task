@@ -8,15 +8,15 @@
 }
 
 @layer utilities {
-  * {
+  body {
     font-family: "Roboto", serif;
     background: #02191d;
-    overflow: hidden;
+    /* overflow: hidden; */
     color: #fff;
   }
 
   .gradient-circle {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
@@ -35,5 +35,19 @@
       rgba(0, 0, 0, 0)
     );
     mask-image: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+
+  .custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23b3b3b3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>')
+      no-repeat right 10px center;
+    background-color: #052228;
+    padding-right: 40px;
+
+    &:focus {
+      outline: none;
+    }
   }
 }

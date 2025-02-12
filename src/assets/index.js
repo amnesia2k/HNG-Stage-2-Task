@@ -21,3 +21,37 @@ export const navLinks = [
     to: "/about",
   },
 ];
+
+export const ticketTypes = [
+  {
+    id: 1,
+    label: "Regular Access",
+    price: "Free",
+    amountLeft: 20,
+    short: "Reg",
+  },
+
+  {
+    id: 2,
+    label: "VIP Access",
+    price: "$50",
+    amountLeft: 20,
+    short: "VIP",
+  },
+
+  {
+    id: 3,
+    label: "VVIP Access",
+    price: "$150",
+    amountLeft: 20,
+    short: "VVIP",
+  },
+
+  {
+    id: 4,
+    label: "Exclusive",
+    price: "$300",
+    amountLeft: 20,
+    short: "Excl.",
+  },
+];
