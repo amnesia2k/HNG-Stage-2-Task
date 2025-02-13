@@ -3,7 +3,12 @@ import { Barcode, Title } from "../components";
 import { useFormContext } from "../contexts/FormContext";
 
 export default function Ticket() {
-  const { formData } = useFormContext();
+  const { formData, clearForm, setStep } = useFormContext();
+
+  const handleBookAnotherTicket = () => {
+    clearForm(); // Clear the form data
+    setStep(1); // Reset to step 1
+  };
 
   return (
     <div className="space-y-5">

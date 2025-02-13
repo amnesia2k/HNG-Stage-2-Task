@@ -104,6 +104,7 @@ export const FormProvider = ({ children }) => {
         formData,
         updateForm,
         step,
+        setStep,
         nextStep,
         prevStep,
         clearForm,
