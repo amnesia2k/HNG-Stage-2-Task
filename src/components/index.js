@@ -8,6 +8,7 @@ import TextInput from "./TextInput";
 import TextInputProp from "./TextInputProp";
 import Title from "./Title";
 import Loader from "./Loader";
+import Barcode from "./Barcode";
 
 export {
   Attendee,
@@ -20,4 +21,5 @@ export {
   Title,
   Navbar,
   Loader,
+  Barcode,
 };

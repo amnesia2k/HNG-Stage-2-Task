@@ -6,6 +6,20 @@ const FormContext = React.createContext();
 export const useFormContext = () => React.useContext(FormContext);
 
 export const FormProvider = ({ children }) => {
+  const generateUPCA = () => {
+    let upc = "";
+    for (let i = 0; i < 11; i++) {
+      upc += Math.floor(Math.random() * 10); // Random digit between 0 and 9
+    }
+    // Calculate the check digit (12th digit)
+    let sum = 0;
+    for (let i = 0; i < 11; i++) {
+      sum += parseInt(upc[i]) * (i % 2 === 0 ? 3 : 1); // Alternate between multiplying by 3 and 1
+    }
+    const checkDigit = (10 - (sum % 10)) % 10; // Calculate the check digit
+    return upc + checkDigit; // Return the full 12-digit UPC
+  };
+
   // Function to get saved form data from localStorage
   const getSavedFormData = () => {
     const savedData = localStorage.getItem("formData");
@@ -18,6 +32,7 @@ export const FormProvider = ({ children }) => {
           requests: "",
           ticketType: null,
           ticketCount: 1,
+          barcode: generateUPCA(),
         };
   };
 
@@ -50,6 +65,7 @@ export const FormProvider = ({ children }) => {
       requests: "",
       ticketType: null,
       ticketCount: 1,
+      barcode: generateUPCA(),
     });
     setStep(1); // Reset to step 1
   };

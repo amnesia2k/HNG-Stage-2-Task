@@ -1,6 +1,5 @@
 import { useFormContext } from "../contexts/FormContext";
 import Title from "./Title";
-import { ticketTypes } from "../assets";
 import { ImageInput, TextInput } from "../components";
 import { useDropzone } from "react-dropzone";
 import * as React from "react";
@@ -83,7 +82,7 @@ export default function Attendee() {
     formData.append("file", file);
     formData.append("upload_preset", "vhbqlm6s");
     {
-      /*ml_default*/
+      /*ml_default --- for prod*/
     }
     formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
 

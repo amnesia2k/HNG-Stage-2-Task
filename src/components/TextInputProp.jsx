@@ -7,6 +7,7 @@ export default function TextInputProp({
   value,
   type,
   className,
+  classesName,
   onChange,
   required,
   placeholder,
@@ -24,7 +25,7 @@ export default function TextInputProp({
             placeholder={placeholder}
             id={id}
             required={required}
-            className={`border p-2 rounded-md border-[#07373F] focus:outline-none ${className}`}
+            className={`border p-2 rounded-md border-[#07373F] focus:outline-none ${classesName}`}
           />
         ) : (
           <input
@@ -35,7 +36,7 @@ export default function TextInputProp({
             placeholder={placeholder}
             id={id}
             required={required}
-            className={`border p-2 rounded-md border-[#07373F] focus:outline-none ${className}`}
+            className={`border p-2 rounded-md border-[#07373F] focus:outline-none ${classesName}`}
           />
         )}
       </div>
@@ -50,6 +51,7 @@ TextInputProp.propTypes = {
   value: PropTypes.string,
   type: PropTypes.string,
   className: PropTypes.string,
+  classesName: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   placeholder: PropTypes.string,

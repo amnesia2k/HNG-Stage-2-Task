@@ -1,6 +1,8 @@
 import logo from "./logo-11-02.png";
+import ticket from "./ticket.png";
+import ticket2 from "./ticket.svg";
 
-export { logo };
+export { logo, ticket, ticket2 };
 
 export const navLinks = [
   {

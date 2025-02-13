@@ -13,6 +13,7 @@ export default function TextInput({ formData, updateForm }) {
         value={formData.fullName}
         required={true}
         onChange={(e) => updateForm("fullName", e.target.value)}
+        classesName="placeholder:text-sm"
       />
 
       <TextInputProp
@@ -24,6 +25,7 @@ export default function TextInput({ formData, updateForm }) {
         value={formData.email}
         required={true}
         onChange={(e) => updateForm("email", e.target.value)}
+        classesName="placeholder:text-sm"
       />
 
       <TextInputProp
@@ -35,7 +37,7 @@ export default function TextInput({ formData, updateForm }) {
         required={true}
         onChange={(e) => updateForm("requests", e.target.value)}
         component="textarea"
-        className="resize-none placeholder:text-sm h-[150px] md:h-[200px]"
+        classesName="resize-none placeholder:text-sm h-[150px] md:h-[200px]"
       />
     </div>
   );
