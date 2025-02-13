@@ -1,13 +1,15 @@
 import { Outlet } from "react-router-dom";
-import { FormProvider } from "./contexts/FormContext";
-import { Footer, Navbar } from "./components";
+import { useFormContext } from "./contexts/FormContext";
+import { Navbar } from "./components";
 import { Toaster } from "sonner";
 
 export default function Layout() {
+  const { step } = useFormContext();
+
   return (
-    <FormProvider>
+    <>
       <Toaster richColors position="top-right" />
-      <div className="p-5">
+      <div className={`${step === 3 ? "p-3" : "p-5"}`}>
         <div className="gradient-circle" />
         <div className="space-y-5">
           <Navbar />
@@ -15,6 +17,6 @@ export default function Layout() {
           {/* <Footer /> */}
         </div>
       </div>
-    </FormProvider>
+    </>
   );
 }
