@@ -1,9 +1,114 @@
 import { useFormContext } from "../contexts/FormContext";
 import Title from "./Title";
 import { ticketTypes } from "../assets";
+import { ImageInput, TextInput } from "../components";
+import { useDropzone } from "react-dropzone";
+import * as React from "react";
+import { toast } from "sonner";
 
 export default function Attendee() {
   const { formData, updateForm, nextStep, prevStep } = useFormContext();
+  const [dataURL, setDataURL] = React.useState(null);
+  // const [uploadedURL, setUploadedURL] = React.useState(null);
+
+  // const onDrop = React.useCallback((acceptedFiles) => {
+  //   acceptedFiles.forEach((file) => {
+  //     const reader = new FileReader();
+  //     reader.onabort = () => console.log("file readin was aborted");
+  //     reader.onerror = () => console.log("file reading error");
+  //     reader.onload = async () => {
+  //       const binaryStr = reader.result;
+  //       setDataURL(binaryStr);
+
+  //       if (file) {
+  //         await uploadImage(file);
+  //       }
+  //     };
+  //     reader.readAsDataURL(file);
+  //   });
+  // }, []);
+
+  // const { acceptedFiles, getInputProps, getRootProps, isDragActive } =
+  //   useDropzone({ onDrop });
+
+  // const selectedFile = acceptedFiles[0];
+  // // console.log(selectedFile);
+
+  // const uploadImage = async (file) => {
+  //   let formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("upload_preset", "vhbqlm6s");
+  //   formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
+
+  //   try {
+  //     const response = await fetch(
+  //       "https://api.cloudinary.com/v1_1/dszmrtmyk/image/upload",
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     console.log(data);
+  //     updateForm("avatarUrl", data.secure_url);
+  //     toast.success("Image uploaded successfully!");
+  //   } catch (error) {
+  //     console.error("Upload failed:", error);
+  //     toast.error("Image upload failed!");
+  //   }
+  // };
+
+  // const onDrop = React.useCallback((acceptedFiles) => {
+  //   acceptedFiles.forEach((file) => {
+  //     uploadImage(file); // ✅ Directly upload the file
+  //   });
+  // }, []);
+
+  const onDrop = React.useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setDataURL(reader.result); // ✅ Update state to show preview
+      };
+      reader.readAsDataURL(file); // ✅ Convert file to data URL
+      uploadImage(file); // ✅ Upload the file after reading
+    });
+  }, []);
+
+  const { getInputProps, getRootProps, isDragActive } = useDropzone({ onDrop });
+
+  const uploadImage = async (file) => {
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "vhbqlm6s");
+    {
+      /*ml_default*/
+    }
+    formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dszmrtmyk/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      if (data.secure_url) {
+        updateForm("avatarUrl", data.secure_url);
+        toast.success("Image uploaded successfully!");
+      } else {
+        console.error("Upload error:", data);
+        toast.error("Image upload failed!");
+      }
+    } catch (error) {
+      console.error("Upload failed:", error);
+      toast.error("Image upload failed!");
+    }
+  };
 
   return (
     <div className="space-y-5">
@@ -12,83 +117,35 @@ export default function Attendee() {
       </div>
 
       <div className="max-w-[700px] w-full mx-auto md:bg-[#08252B] md:border md:border-[#0E464F] md:rounded-3xl md:p-5 space-y-7">
-        <div className="bg-gradient-to-br from-[#07373F] to-[#0A0C11] border border-[#07373F] w-full mx-auto rounded-3xl text-center md:py-5 md:px-0 p-3 space-y-5 md:space-y-2">
-          {/*bg-gradient-to-br from-[#07373F] to-[#0A0C11] ...this is the best i could get the gradient to look like*/}
-          <h3 className="font-road-rage text-[40px] md:text-[62px] leading-[100%]">
-            Techember Fest ”25
-          </h3>
-          <h4 className="max-w-[340px] w-full mx-auto leading-[150%] text-sm md:text-base">
-            Join us for an unforgettable experience at Techember! Secure your
-            spot now.
-          </h4>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-x-3">
-            <h3>📍 The Zone Tech Park</h3>
-            <h2 className="hidden md:block">||</h2>
-            <h3>March 15, 2025 | 11:00 AM</h3>
-          </div>
+        <div className="bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl h-[350px] md:h-auto px-5 pt-5 pb-10 space-y-10 md:space-y-7">
+          <h3>Upload Profile Picture</h3>
+
+          <ImageInput
+            getRootProps={getRootProps}
+            getInputProps={getInputProps}
+            isDragActive={isDragActive}
+            dataURL={dataURL}
+          />
         </div>
 
         <div>
           <div className="h-1 w-full bg-[#0E464F]" />
         </div>
 
-        <div className="space-y-3">
-          <h3 className="leading-[150%]">Select Ticket Type:</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl p-5">
-            {ticketTypes.map((ticket) => (
-              <div
-                key={ticket?.id}
-                className={`flex flex-col gap-2 p-3 rounded-xl border border-[#197686] cursor-pointer ${
-                  formData.ticketType?.id === ticket?.id ? "bg-[#12464E]" : ""
-                }`}
-                onClick={() => updateForm("ticketType", ticket)}
-              >
-                <div>
-                  <h4 className="text-xl font-semibold">{ticket?.price}</h4>
-                </div>
-                <div className="flex flex-col gap-y-1">
-                  <h3 className="leading-[150%] uppercase">{ticket?.label}</h3>
-                  <h4 className="text-sm">{`${ticket?.amountLeft}/52`}</h4>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <h3 className="leading-[150%]">Number of Tickets</h3>
-
-          <div>
-            <select
-              name="Number of Tickets"
-              value={formData?.ticketCount}
-              onChange={(e) =>
-                updateForm("ticketCount", Number(e.target.value))
-              }
-              className="custom-select border border-[#07373F] w-full px-5 py-3 rounded-xl"
-            >
-              {[...Array(10).keys()].map((num) => (
-                <option key={num + 1} value={num + 1} className="bg-[#052228]">
-                  {num + 1}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+        <TextInput formData={formData} updateForm={updateForm} />
 
         <div className="flex flex-col items-center justify-center gap-y-5 md:gap-x-5 font-merriweather md:flex-row">
           <button
-            className="border border-[#24A0B5] text-[#24A0B5] py-3 px-20 rounded-xl w-full cursor-pointer"
+            className="border border-[#24A0B5] text-[#24A0B5] py-3 rounded-xl w-full cursor-pointer"
             onClick={prevStep}
           >
             Back
           </button>
           <button
-            className="bg-[#24A0B5] text-white py-3 px-20 rounded-xl w-full cursor-pointer"
+            className="bg-[#24A0B5] text-white py-3 rounded-xl w-full cursor-pointer"
             onClick={nextStep}
           >
-            Next
+            Get My Free Ticket
           </button>
         </div>
       </div>

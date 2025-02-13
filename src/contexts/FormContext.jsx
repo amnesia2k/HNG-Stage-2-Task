@@ -15,6 +15,7 @@ export const FormProvider = ({ children }) => {
           fullName: "",
           email: "",
           avatarUrl: "",
+          requests: "",
           ticketType: null,
           ticketCount: 1,
         };
@@ -34,6 +35,7 @@ export const FormProvider = ({ children }) => {
     setFormData((prev) => {
       const updatedData = { ...prev, [key]: value };
       localStorage.setItem("formData", JSON.stringify(updatedData)); // Save to localStorage
+      console.log(updatedData);
       return updatedData;
     });
   };
@@ -45,6 +47,7 @@ export const FormProvider = ({ children }) => {
       fullName: "",
       email: "",
       avatarUrl: "",
+      requests: "",
       ticketType: null,
       ticketCount: 1,
     });
@@ -61,8 +64,6 @@ export const FormProvider = ({ children }) => {
   React.useEffect(() => {
     localStorage.setItem("formStep", step.toString());
   }, [step]);
-
-  console.log(updateForm?.updatedData);
 
   const nextStep = () => {
     setLoading(true);

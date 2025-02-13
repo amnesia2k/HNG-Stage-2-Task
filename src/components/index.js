@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import ImageInput from "./ImageInput";
 import TextInput from "./TextInput";
+import TextInputProp from "./TextInputProp";
 import Title from "./Title";
 import Loader from "./Loader";
 
@@ -15,6 +16,7 @@ export {
   Footer,
   ImageInput,
   TextInput,
+  TextInputProp,
   Title,
   Navbar,
   Loader,

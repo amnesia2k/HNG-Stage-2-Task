@@ -35,21 +35,21 @@ export default function Selection() {
         <div className="space-y-3">
           <h3 className="leading-[150%]">Select Ticket Type:</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl p-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl p-5">
             {ticketTypes.map((ticket) => (
               <div
                 key={ticket?.id}
-                className="flex flex-row justify-between items-center p-3 rounded-xl border border-[#07373F] cursor-pointer"
+                className={`flex flex-col gap-2 p-3 rounded-xl border border-[#197686] cursor-pointer ${
+                  formData.ticketType?.id === ticket?.id ? "bg-[#12464E]" : ""
+                }`}
                 onClick={() => updateForm("ticketType", ticket)}
               >
-                <div className="flex flex-col gap-y-2">
-                  <h3 className="leading-[150%]">{ticket?.label}</h3>
-                  <h4 className="text-sm">{`${ticket?.amountLeft} left!`}</h4>
+                <div>
+                  <h4 className="text-xl font-semibold">{ticket?.price}</h4>
                 </div>
-                <div className="bg-[#0E464F] border border-[#2BA4B9] px-3 py-1 rounded-xl">
-                  <h4 className="text-xl font-semibold ml-5">
-                    {ticket?.price}
-                  </h4>
+                <div className="flex flex-col gap-y-1">
+                  <h3 className="leading-[150%] uppercase">{ticket?.label}</h3>
+                  <h4 className="text-sm">{`${ticket?.amountLeft}/52`}</h4>
                 </div>
               </div>
             ))}
