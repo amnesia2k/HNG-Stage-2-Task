@@ -38,8 +38,7 @@ export default function Ticket() {
     if (ticketRef.current && imagesLoaded) {
       html2canvas(ticketRef.current, {
         scale: 2,
-        useCORS: true, // Enable CORS for external images
-        // foreignObjectRendering: true, // Improve rendering of complex CSS
+        useCORS: true,
       }).then((canvas) => {
         const link = document.createElement("a");
         link.href = canvas.toDataURL("image/png");
@@ -63,7 +62,7 @@ export default function Ticket() {
         <div>
           <img
             src={ticket}
-            alt="ticket"
+            alt={`${formData.fullName}_ticket`}
             className="absolute top-0 inset-x-0 w-[300px] h-full z-40 object-cover"
           />
 

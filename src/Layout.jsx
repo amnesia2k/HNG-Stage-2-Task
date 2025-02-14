@@ -14,7 +14,6 @@ export default function Layout() {
         <div className="space-y-5">
           <Navbar />
           <Outlet />
-          {/* <Footer /> */}
         </div>
       </div>
     </>

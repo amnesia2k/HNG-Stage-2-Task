@@ -13,7 +13,6 @@ export default function Selection() {
 
       <div className="max-w-[700px] w-full mx-auto md:bg-[#08252B] md:border md:border-[#0E464F] md:rounded-3xl md:p-5 space-y-7">
         <div className="bg-gradient-to-br from-[#07373F] to-[#0A0C11] border border-[#07373F] w-full mx-auto rounded-3xl text-center md:py-5 md:px-0 p-3 space-y-5 md:space-y-2">
-          {/*bg-gradient-to-br from-[#07373F] to-[#0A0C11] ...this is the best i could get the gradient to look like*/}
           <h3 className="font-road-rage text-[40px] md:text-[62px] leading-[100%]">
             Techember Fest ”25
           </h3>
@@ -35,11 +34,11 @@ export default function Selection() {
         <div className="space-y-3">
           <h3 className="leading-[150%]">Select Ticket Type:</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl p-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-5 bg-[#052228] border border-[#07373F] w-full mx-auto rounded-3xl p-2 md:p-5">
             {ticketTypes.map((ticket) => (
               <div
                 key={ticket?.id}
-                className={`flex flex-col gap-2 p-3 rounded-xl border border-[#197686] cursor-pointer ${
+                className={`flex flex-col gap-2 p-3 rounded-xl border border-[#197686] cursor-pointer hover:bg-[#07373F] ${
                   formData.ticketType?.id === ticket?.id ? "bg-[#12464E]" : ""
                 }`}
                 onClick={() => updateForm("ticketType", ticket)}

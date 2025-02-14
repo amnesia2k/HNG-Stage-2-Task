@@ -8,70 +8,15 @@ import { toast } from "sonner";
 export default function Attendee() {
   const { formData, updateForm, nextStep, prevStep } = useFormContext();
   const [dataURL, setDataURL] = React.useState(null);
-  // const [uploadedURL, setUploadedURL] = React.useState(null);
-
-  // const onDrop = React.useCallback((acceptedFiles) => {
-  //   acceptedFiles.forEach((file) => {
-  //     const reader = new FileReader();
-  //     reader.onabort = () => console.log("file readin was aborted");
-  //     reader.onerror = () => console.log("file reading error");
-  //     reader.onload = async () => {
-  //       const binaryStr = reader.result;
-  //       setDataURL(binaryStr);
-
-  //       if (file) {
-  //         await uploadImage(file);
-  //       }
-  //     };
-  //     reader.readAsDataURL(file);
-  //   });
-  // }, []);
-
-  // const { acceptedFiles, getInputProps, getRootProps, isDragActive } =
-  //   useDropzone({ onDrop });
-
-  // const selectedFile = acceptedFiles[0];
-  // // console.log(selectedFile);
-
-  // const uploadImage = async (file) => {
-  //   let formData = new FormData();
-  //   formData.append("file", file);
-  //   formData.append("upload_preset", "vhbqlm6s");
-  //   formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://api.cloudinary.com/v1_1/dszmrtmyk/image/upload",
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //       }
-  //     );
-
-  //     const data = await response.json();
-  //     console.log(data);
-  //     updateForm("avatarUrl", data.secure_url);
-  //     toast.success("Image uploaded successfully!");
-  //   } catch (error) {
-  //     console.error("Upload failed:", error);
-  //     toast.error("Image upload failed!");
-  //   }
-  // };
-
-  // const onDrop = React.useCallback((acceptedFiles) => {
-  //   acceptedFiles.forEach((file) => {
-  //     uploadImage(file); // ✅ Directly upload the file
-  //   });
-  // }, []);
 
   const onDrop = React.useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
       reader.onload = () => {
-        setDataURL(reader.result); // ✅ Update state to show preview
+        setDataURL(reader.result);
       };
-      reader.readAsDataURL(file); // ✅ Convert file to data URL
-      uploadImage(file); // ✅ Upload the file after reading
+      reader.readAsDataURL(file);
+      uploadImage(file);
     });
   }, []);
 
@@ -81,9 +26,6 @@ export default function Attendee() {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "vhbqlm6s");
-    {
-      /*ml_default --- for prod*/
-    }
     formData.append("api_key", import.meta.env.VITE_CLOUDINARY_API_KEY);
 
     try {

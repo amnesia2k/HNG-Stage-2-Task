@@ -9,18 +9,16 @@ export const FormProvider = ({ children }) => {
   const generateUPCA = () => {
     let upc = "";
     for (let i = 0; i < 11; i++) {
-      upc += Math.floor(Math.random() * 10); // Random digit between 0 and 9
+      upc += Math.floor(Math.random() * 10);
     }
-    // Calculate the check digit (12th digit)
     let sum = 0;
     for (let i = 0; i < 11; i++) {
-      sum += parseInt(upc[i]) * (i % 2 === 0 ? 3 : 1); // Alternate between multiplying by 3 and 1
+      sum += parseInt(upc[i]) * (i % 2 === 0 ? 3 : 1);
     }
-    const checkDigit = (10 - (sum % 10)) % 10; // Calculate the check digit
-    return upc + checkDigit; // Return the full 12-digit UPC
+    const checkDigit = (10 - (sum % 10)) % 10;
+    return upc + checkDigit;
   };
 
-  // Function to get saved form data from localStorage
   const getSavedFormData = () => {
     const savedData = localStorage.getItem("formData");
     return savedData
@@ -36,26 +34,22 @@ export const FormProvider = ({ children }) => {
         };
   };
 
-  // State for form data, initialized from localStorage
   const [formData, setFormData] = React.useState(getSavedFormData());
 
-  // State for step navigation
   const [step, setStep] = React.useState(1);
 
-  // State for loading
   const [loading, setLoading] = React.useState(false);
 
-  // Function to update form data and save it to localStorage
   const updateForm = (key, value) => {
     setFormData((prev) => {
       const updatedData = { ...prev, [key]: value };
-      localStorage.setItem("formData", JSON.stringify(updatedData)); // Save to localStorage
+      localStorage.setItem("formData", JSON.stringify(updatedData));
+      console.log("Updating Form:", updatedData);
       console.log(updatedData);
       return updatedData;
     });
   };
 
-  // Function to clear form data when needed (e.g., on form submission or cancel)
   const clearForm = () => {
     localStorage.removeItem("formData");
     setFormData({
@@ -67,16 +61,14 @@ export const FormProvider = ({ children }) => {
       ticketCount: 1,
       barcode: generateUPCA(),
     });
-    setStep(1); // Reset to step 1
+    setStep(1);
   };
 
-  // Load the last visited step from localStorage when the app starts
   React.useEffect(() => {
     const savedStep = localStorage.getItem("formStep");
     if (savedStep) setStep(Number(savedStep));
   }, []);
 
-  // Save step number in localStorage whenever it changes
   React.useEffect(() => {
     localStorage.setItem("formStep", step.toString());
   }, [step]);
