@@ -2,9 +2,21 @@ import { Outlet } from "react-router-dom";
 import { useFormContext } from "./contexts/FormContext";
 import { Navbar } from "./components";
 import { Toaster } from "sonner";
+import useNetworkStatus from "./hooks/useNetworkStatus";
+import Offline from "./pages/Offline";
 
 export default function Layout() {
   const { step } = useFormContext();
+  const { isOnline } = useNetworkStatus();
+
+  if (!isOnline) {
+    return (
+      <>
+        <div className="gradient-circle" />
+        <Offline />
+      </>
+    );
+  }
 
   return (
     <>
